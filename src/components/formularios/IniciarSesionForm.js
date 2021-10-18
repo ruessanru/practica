@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
 
-function IniciarSesionForm(errores, enviarCallback) {
+function IniciarSesionForm({errores, enviarCallback}) {
 
    const [userName,setUserName]= useState("")
    const [password,setPassword]= useState("")
@@ -55,4 +55,4 @@ function IniciarSesionForm(errores, enviarCallback) {
     )
 }
 
-export default IniciarSesionForm
+export  {IniciarSesionForm}

@@ -1,12 +1,11 @@
 import React from 'react'
 
-function Home() {
+function RutaPrivada() {
     return (
         <div>
-            Inicio
+            
         </div>
     )
 }
 
-export {Home}
-
+export {RutaPrivada}

@@ -12,30 +12,36 @@ import { Actualizar } from '../pages/Actualizar';
 import { Registrarse } from '../pages/Registrarse';
 import { Consultar } from '../pages/Consultar';
 import { Contacto } from '../pages/Contacto';
+import { DatosGenerales } from '../pages/DatosGenerales';
+import { RutaPrivada } from './RutaPrivada';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 
 
 function App() {
   return (
-   <BrowserRouter>
-        <div>
-           <Navegacion/>
-        </div>
-        <Container>
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route exact path="/nosotros" component={Nosotros}></Route>
-            <Route exact path="/login" component={Actualizar}></Route>
-            <Route exact path="/registrarse" component={Registrarse}></Route>
-            <Route exact path="/consultar" component={Consultar}></Route>
-            <Route exact path="/contacto" component={Contacto}></Route>
-
-          </Switch>
-        </Container>
-        
-   
-   </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+            <div>
+              <Navegacion/>
+            </div>
+            <Container>
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route exact path="/nosotros" component={Nosotros}></Route>
+                <Route exact path="/login" component={Actualizar}></Route>
+                <Route exact path="/registrarse" component={Registrarse}></Route>
+                <Route exact path="/consultar" component={Consultar}></Route>
+                <Route exact path="/contacto" component={Contacto}></Route>
+                <RutaPrivada exact path="/datos" component ={DatosGenerales}></RutaPrivada>
+                
+              </Switch>
+            </Container>
+            
       
+      </BrowserRouter>
+    </Provider>   
     
       
       
