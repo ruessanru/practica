@@ -84,7 +84,7 @@ function RegistrarseForm({errores, enviarCallback}) {
                    
                 </Form.Group>
                 
-                <Button variant="success" type="submit" className="mb-3">
+                <Button variant="success" type="submit" className="mt-3">
                     Crear Usuario
                 </Button>
             </Form> 

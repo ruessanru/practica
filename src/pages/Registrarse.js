@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import {Alert, Card, Col, Container, Row } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
 import { RegistrarseForm } from '../components/formularios/RegistrarseForm'
 import validator from 'validator'
 import { isObjetoVacio } from '../connection/helpers/isObjetoVacio'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginUsuario, registroUsuario } from '../connection/autenticacionAcciones'
+
 
 
 function Registrarse() {
 
     const [errores, setErrores] =useState({})
+    const dispatch =useDispatch()
 
-    const login = ({userName, userEmail, password, password2})=>{
+    const conectado=useSelector(state=>state.auth.conectado);
+    const history=useHistory();
+
+    useEffect(() => {
+        if(conectado) {
+            history.push("/");
+        }
+        });
+
+    const registro = ({userName, userEmail, password, password2})=>{
 
         const errores ={}
         setErrores(errores)
@@ -19,24 +32,28 @@ function Registrarse() {
             errores.userName= "El campo del usuario no puede estar vacío"
         }
         
-        if(validator.isEmpty(userEmail)){
-            errores.userEmail= "El campo del correo no puede estar vacío"
+        if(!validator.isEmail(userEmail) ){
+            errores.userEmail= "Correo inválido"
         }
         
-        if(validator.isEmpty(password)){
-            errores.password= "El campo de la contraseña no puede estar vacío"
+        if(validator.isEmpty(password) || (!validator.isLength(password, {min:8, max:20}))){
+            errores.password= "El campo de la contraseña no puede estar vacío y con una longitud mínima de 8"
         }
-        if(validator.equals(password,password2)){
-            
-        }else{
-            errores.password2="Las contraseñas no coinciden"
+        if(!validator.equals(password,password2)){
+           errores.password2="Las contraseñas no coinciden" 
         }
 
         if(!isObjetoVacio(errores)){
             setErrores(errores);
             return;
         }
-
+        dispatch(registroUsuario(userName, userEmail, password))
+        .then(response=>{
+            dispatch(loginUsuario(userName,password))
+        })
+        .catch(error =>{
+            setErrores({registroError: error.response.data.message})
+        })
 
 
 
@@ -59,16 +76,18 @@ function Registrarse() {
                     <div  >
                     
                        <h3>Regístrate...</h3>
-                    </div>
+                    </div><br></br>
                 </Col>
             </Row>
 
             <Row>
                 
                 <Col sm="12" md={{span:8, offset:2}} lg={{span:6, offset:3}}>
-                   <Card body>
+                   <Card body className= "mt-5 shadow p-3 mb-5 bg-white rounded">
+                       {errores.registroError && <Alert variant ="danger">{errores.registroError}</Alert>}
                        
-                       <RegistrarseForm errores={errores} enviarCallback={login}></RegistrarseForm>
+                       <RegistrarseForm errores={errores} enviarCallback={registro}></RegistrarseForm>
+
                        <div className= "mt-3">
                        <Link to={"/login"}>¿Ya tienes cuenta? Inicia sesión Aquí</Link>
                        </div>

@@ -16,8 +16,9 @@ import { DatosGenerales } from '../pages/DatosGenerales';
 import { RutaPrivada } from './RutaPrivada';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-
-
+import { comprobarToken } from '../connection/helpers/comprobarToken';
+import {CuestionarioConectividad} from '../pages/CuestionarioConectividad'
+comprobarToken()
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
                 <Route exact path="/consultar" component={Consultar}></Route>
                 <Route exact path="/contacto" component={Contacto}></Route>
                 <RutaPrivada exact path="/datos" component ={DatosGenerales}></RutaPrivada>
-                
+                <RutaPrivada exact path="/conectividad" component ={CuestionarioConectividad}></RutaPrivada>
               </Switch>
             </Container>
             

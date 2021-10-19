@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Alert, Card, Col, Container, Row } from 'react-bootstrap'
+import { Link,useHistory } from 'react-router-dom'
 import {IniciarSesionForm} from '../components/formularios/IniciarSesionForm'
 import validator from 'validator'
 import { isObjetoVacio } from '../connection/helpers/isObjetoVacio'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUsuario } from '../connection/autenticacionAcciones'
 
 
@@ -12,6 +12,15 @@ function Actualizar() {
 
     const [errores, setErrores] =useState({})
     const dispatch =useDispatch()
+
+    const conectado=useSelector(state=>state.auth.conectado);
+    const history=useHistory();
+
+    useEffect(() => {
+        if(conectado) {
+            history.push("/");
+        }
+        });
 
     const login = ({userName, password})=>{
 
@@ -44,7 +53,7 @@ function Actualizar() {
 
     return (
      
-        <Container>
+        <Container >
             <Row>
                 <Col sm="12">
                    <div className= "mt-5">
@@ -56,15 +65,15 @@ function Actualizar() {
                     <div  >
                     
                        <h3>Bienvenido, Inicia tu Sesión...</h3>
-                    </div>
+                    </div><br></br>
                 </Col>
             </Row>
 
             <Row>
                 
                 <Col sm="12" md={{span:8, offset:2}} lg={{span:6, offset:3}}>
-                   <Card body>
-                       
+                   <Card body className= "mt-5 shadow p-3 mb-5 bg-white rounded">
+                       {errores.autenticacion && <Alert variant ="danger">{errores.autenticaion}</Alert>}
                        <IniciarSesionForm errores={errores} enviarCallback={login}></IniciarSesionForm>
                        <div className= "mt-3">
                        <Link to={"/registrarse"}>¿No tienes cuenta? Regístrate Aquí</Link>

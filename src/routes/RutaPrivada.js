@@ -1,10 +1,21 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-function RutaPrivada() {
+function RutaPrivada({component: Component, ...restPro}) {
+
+    const conectado = useSelector(state=>state.auth.conectado);
+
     return (
-        <div>
-            
-        </div>
+        
+        <Route
+            {...restPro}
+            render={
+            (propiedades) => conectado === true 
+            ? <Component {...propiedades}/>
+            : <Redirect to="/login"/>
+            }
+        />
     )
 }
 

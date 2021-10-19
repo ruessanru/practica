@@ -19,8 +19,8 @@ function IniciarSesionForm({errores, enviarCallback}) {
                 <Form.Group className="mb-3" controlId="userName">
                     <Form.Label>Usuario</Form.Label>
                     <Form.Control 
-                         type="email" 
-                         placeholder="Ingrese su correo"
+                         type="text" 
+                         placeholder="Ingrese su nombre de usuario"
                          value={userName}
                          onChange={e=>setUserName(e.target.value)}
                          isInvalid={errores.userName}
@@ -47,7 +47,7 @@ function IniciarSesionForm({errores, enviarCallback}) {
                     </Form.Control.Feedback>
                 </Form.Group>
                 
-                <Button variant="success" type="submit">
+                <Button variant="success" type="submit" className= "mt-3">
                     Iniciar Sesión
                 </Button>
             </Form> 

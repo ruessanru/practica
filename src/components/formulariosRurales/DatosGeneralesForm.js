@@ -3,22 +3,10 @@ import { Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
 
-
-
-
-function DatosGeneralesForm() {
+function DatosGeneralesForm({errores, enviarCallback}) {
     return (
         <Form>
             
-            
-            <Form.Group className="mb-3" controlId="fecha">
-                <Form.Label>Fecha</Form.Label>
-                <Form.Control type="date"  />
-            
-            </Form.Group>
-
-            
-
             <Form.Group className="mb-3" controlId="departamento">
                     <Form.Label>Departamento</Form.Label>
                     <Form.Control 
