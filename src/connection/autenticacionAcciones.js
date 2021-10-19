@@ -1,7 +1,7 @@
-import React from 'react'
+import axios from 'axios'
 import { LOGIN_ENDPOINT } from './helpers/endpoints'
 
-export const loginUsuario = (datosUsuario) => {
+export const loginUsuario = (datosUsuario) => dispatch => {
 
     console.log(datosUsuario)
 
