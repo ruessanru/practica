@@ -76,7 +76,7 @@ function Registrarse() {
                     <div  >
                     
                        <h3>Regístrate...</h3>
-                    </div><br></br>
+                    </div>
                 </Col>
             </Row>
 
